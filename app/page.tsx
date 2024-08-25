@@ -7,8 +7,9 @@ import AnalysisResult from "@/components/analysis-result";
 
 type PredictionResult = {
   text: string;
-  prediction: 'AI-generated' | 'Human-written';
+  prediction: "AI-generated" | "Human-written";
   confidence: number;
+  explanation_url: string;
 };
 
 type TypewriterTextProps = {
@@ -52,9 +53,11 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts }) => {
 const Home: React.FC = () => {
   const [text, setText] = useState<string>("");
   const [result, setResult] = useState<PredictionResult | null>({
-    text: "This is a sample text",
-    prediction: 'AI-generated',
-    confidence: 0.90
+    confidence: 0.5503950119018555,
+    explanation_url:
+      "https://s3.us-east-005.backblazeb2.com/aigt123/explanations/8418f6b7-2430-4b6d-9513-61e344656b17.png",
+    prediction: "Human-written",
+    text: "vvvvvvvvvvfrrrffbbgbgghyjkdsdfdbfjyyjhvdsfdghgj",
   });
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -80,21 +83,25 @@ const Home: React.FC = () => {
     "Analyze your text with AI",
     "Uncover hidden insights",
     "Enhance your understanding",
-    "Powered by advanced NLP"
+    "Powered by advanced NLP",
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-indigo-100 flex flex-col items-center justify-start p-6">
       <header className="w-full max-w-4xl text-center mb-12">
-        <h1 className="text-6xl font-space-grotesk font-bold text-violet-800 mb-4">Authenti-Text</h1>
+        <h1 className="text-6xl font-space-grotesk font-bold text-violet-800 mb-4">
+          Authenti-Text
+        </h1>
         <TypewriterText texts={descriptionTexts} />
       </header>
-      
+
       <main className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
         <div className="mb-6">
           <Textarea
             value={text}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setText(e.target.value)
+            }
             placeholder="Paste the text to analyze..."
             className="w-full h-48 p-4 border border-violet-200 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
           />
